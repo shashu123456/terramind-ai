@@ -1,0 +1,54 @@
+# ---- Dependencies ----------------------------------------------------------
+**/node_modules/
+.pnpm-store/
+
+# ---- Build outputs ---------------------------------------------------------
+dist/
+build/
+*.dist
+.tsbuildinfo
+
+# ---- Environment -----------------------------------------------------------
+.env
+.env.local
+.env.*.local
+
+# ---- TerraMind runtime data -------------------------------------------------
+.data/
+.terramind/
+*.log
+logs/
+
+# ---- Stray nested workspace (unrelated, not part of TerraMind) -------------
+.kilo/
+
+# ---- Manus scaffold artifacts ----------------------------------------------
+apps/web/public/__manus__/
+.manus-logs/
+
+# ---- IDE / editor -----------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---- OS ---------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+thumbs.db
+
+# ---- Coverage ---------------------------------------------------------------
+coverage/
+*.lcov
+.nyc_output
+
+# ---- Misc caches --------------------------------------------------------------
+.cache/
+.parcel-cache/
+.eslintcache

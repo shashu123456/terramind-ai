@@ -1,0 +1,55 @@
+{
+  "name": "terramind-ai",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "TerraMind AI — explainable intervention-planning copilot for campuses and institutional sites.",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c cyan,magenta \"pnpm --filter @terramind/api dev\" \"pnpm --filter @terramind/web dev\"",
+    "dev:api": "pnpm --filter @terramind/api dev",
+    "dev:web": "pnpm --filter @terramind/web dev",
+    "build": "pnpm --filter @terramind/web build && pnpm --filter @terramind/api build",
+    "start": "cross-env NODE_ENV=production node apps/api/dist/index.js",
+    "demo": "pnpm dev",
+    "check": "tsc -p apps/api && tsc -p apps/web && tsc -p packages/shared && tsc -p packages/core && tsc -p packages/ai && tsc -p packages/db && tsc -p packages/ui",
+    "typecheck": "pnpm check",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:generate": "pnpm --filter @terramind/db db:generate",
+    "db:push": "pnpm --filter @terramind/db db:push",
+    "docker:up": "docker compose -f deploy/docker-compose.yml up --build",
+    "setup": "node scripts/setup.mjs",
+    "verify": "pnpm check && pnpm lint && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.28.2",
+    "eslint": "^9.22.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "14.0.0",
+    "prettier": "^3.6.2",
+    "typescript": "5.9.3",
+    "typescript-eslint": "^8.26.0",
+    "vitest": "^3.2.4"
+  },
+  "packageManager": "pnpm@10.4.1",
+  "pnpm": {
+    "patchedDependencies": {
+      "wouter@3.7.1": "patches/wouter@3.7.1.patch"
+    },
+    "overrides": {
+      "tailwindcss>nanoid": "3.3.7"
+    }
+  }
+}
