@@ -1,0 +1,266 @@
+/** Data-defined intervention catalog for campuses and institutional sites. */
+
+import type { CatalogEntry } from "./types";
+
+export const INTERVENTION_CATALOG: CatalogEntry[] = [
+  {
+    slug: "energy-monitoring",
+    title: "Energy monitoring & sub-metering",
+    category: "Measure & manage",
+    description:
+      "Install smart meters and sub-meters to see where electricity is consumed before investing in upgrades. The 'measure first' action of the recommended sequence.",
+    capexInr: 350_000,
+    capexNote: "60–100 meters, gateway and analytics, installed",
+    confidence: "low",
+    feasibility: 0.92,
+    energyRate: 0.03,
+    spread: 0.5,
+    phase: "measure",
+    prerequisites: [],
+    evidence: ["iod-doe-led", "bem-bee-metering", "iso-50001-dev"],
+    sdgs: [7, 9, 12],
+    assumptions: [
+      "Metering drives a 3% behavioural and operational saving in year one.",
+      "Savings persist while dashboards are reviewed monthly.",
+    ],
+  },
+  {
+    slug: "led-controls",
+    title: "LED lighting retrofit & controls",
+    category: "Lighting",
+    description:
+      "Replace legacy lighting with high-efficacy LED fittings and add occupancy/daylight controls across classrooms, corridors, and common areas.",
+    capexInr: 1_200_000,
+    capexNote: "~2,400 fixtures at ₹500/fixture incl. controls",
+    confidence: "high",
+    feasibility: 0.88,
+    energyRate: 0.12,
+    spread: 0.15,
+    phase: "reduce",
+    prerequisites: [],
+    evidence: ["iod-doe-led", "bee-lighting"],
+    sdgs: [7, 12, 13],
+    assumptions: [
+      "Lighting is ~20–25% of campus electricity and LEDs save ~40–60% on that share (≈12% of total).",
+      "Controls (occupancy + daylight) are bundled in the capex.",
+    ],
+  },
+  {
+    slug: "occupancy-sensors",
+    title: "Occupancy & daylight sensors",
+    category: "Building controls",
+    description:
+      "Automatically switch off lights and ventilative cooling in unoccupied rooms using presence and daylight sensors.",
+    capexInr: 650_000,
+    capexNote: "~800 sensor zones at ₹810/zone",
+    confidence: "medium",
+    feasibility: 0.85,
+    energyRate: 0.07,
+    spread: 0.35,
+    phase: "reduce",
+    prerequisites: [],
+    evidence: ["iod-doe-led", "bee-lighting"],
+    sdgs: [7, 9, 13],
+    assumptions: [
+      "Sensors capture waste in rooms with variable occupancy (labs, seminar halls, hostels).",
+      "Assumes controls integrate with the existing lighting network.",
+    ],
+  },
+  {
+    slug: "hvac-optimization",
+    title: "HVAC optimisation",
+    category: "Mechanical",
+    description:
+      "Tune set-points, schedules and variable-speed drives on air conditioning and ventilation plant — the largest electricity user on most campuses.",
+    capexInr: 2_800_000,
+    capexNote: "Commissioning + controller upgrades on ~40 AHUs/chillers",
+    confidence: "medium",
+    feasibility: 0.62,
+    energyRate: 0.18,
+    spread: 0.3,
+    phase: "reduce",
+    prerequisites: [],
+    evidence: ["bers-rmi-cold", "iso-50001-dev"],
+    sdgs: [7, 9, 13],
+    assumptions: [
+      "HVAC is ~40% of campus electricity; optimisation saves ~30–45% of that (≈18% of total).",
+      "Requires qualified HVAC engineering staff or an energy-services contractor.",
+    ],
+  },
+  {
+    slug: "low-flow-fixtures",
+    title: "Low-flow water fixtures",
+    category: "Water efficiency",
+    description:
+      "Replace taps, showers and urinals with low-flow aerators and sensors across hostels, academic blocks and washrooms.",
+    capexInr: 500_000,
+    capexNote: "~700 fixtures at ~₹715/fixture",
+    confidence: "high",
+    feasibility: 0.9,
+    waterRate: 0.15,
+    spread: 0.2,
+    phase: "reduce",
+    prerequisites: [],
+    evidence: ["epa-watersense", "cgiwb-groundwater"],
+    sdgs: [6, 12],
+    assumptions: [
+      "Low-flow fixtures reduce domestic water use by ~15% with no behaviour change required.",
+    ],
+  },
+  {
+    slug: "rainwater-harvesting",
+    title: "Rainwater harvesting",
+    category: "Water supply",
+    description:
+      "Capture roof runoff into tanks, percolation pits and recharge wells to offset municipal draw during the monsoon.",
+    capexInr: 800_000,
+    capexNote: "500 kL storage + 4 recharge pits + piping",
+    confidence: "medium",
+    feasibility: 0.74,
+    waterRate: 0.18,
+    spread: 0.3,
+    phase: "generate",
+    prerequisites: [],
+    evidence: ["mcma-rainwater", "cgiwb-groundwater"],
+    sdgs: [6, 11, 13],
+    assumptions: [
+      "Pune receives ~750 mm/yr; ~18% of annual water demand can be offset on an 20,000 m² campus.",
+      "Assumes adequate rooftop collection area and storage.",
+    ],
+  },
+  {
+    slug: "wastewater-reuse",
+    title: "Wastewater treatment & reuse",
+    category: "Water supply",
+    description:
+      "Treat greywater/blackwater on site and reuse treated water for flushing and landscaping, cutting fresh-water intake.",
+    capexInr: 2_200_000,
+    capexNote: "Compact STP + tertiary treatment + reuse piping",
+    confidence: "low",
+    feasibility: 0.5,
+    waterRate: 0.25,
+    spread: 0.35,
+    phase: "generate",
+    prerequisites: ["low-flow-fixtures"],
+    evidence: ["epa-watersense", "cgiwb-groundwater"],
+    sdgs: [6, 11, 12],
+    assumptions: [
+      "Retrofitting an STP on an active campus has high civil cost and regulatory lead time.",
+      "Savings are higher when reuse replaces potable water for flushing and irrigation.",
+    ],
+  },
+  {
+    slug: "waste-segregation",
+    title: "Waste segregation at source",
+    category: "Circular economy",
+    description:
+      "Bin-level segregation (dry/wet/electronic/hazardous), labelled collection points and colour-coded logistics so recyclables leave the landfill stream.",
+    capexInr: 350_000,
+    capexNote: "200 bin sets + signage + collection carts",
+    confidence: "medium",
+    feasibility: 0.81,
+    wasteRate: 0.22,
+    spread: 0.25,
+    phase: "reduce",
+    prerequisites: [],
+    evidence: ["epa-waste", "swachh-india"],
+    sdgs: [11, 12, 13],
+    assumptions: [
+      "Segregation at source diverts ~22% of campus waste from landfill without deeper processing.",
+    ],
+  },
+  {
+    slug: "composting",
+    title: "On-site composting",
+    category: "Circular economy",
+    description:
+      "Convert segregated organic waste (canteen + landscape) into compost used on campus grounds, avoiding landfill and replacing soil inputs.",
+    capexInr: 700_000,
+    capexNote: "Organic waste converter + curing yard (2 t/day)",
+    confidence: "medium",
+    feasibility: 0.72,
+    wasteRate: 0.18,
+    spread: 0.3,
+    phase: "reduce",
+    prerequisites: ["waste-segregation"],
+    evidence: ["epa-waste", "niti-compost"],
+    sdgs: [11, 12, 13, 15],
+    assumptions: [
+      "Composting needs reliable segregated organic feedstock — therefore depends on waste-segregation.",
+      "Compost displaces manufactured fertiliser in landscape use.",
+    ],
+  },
+  {
+    slug: "native-landscape",
+    title: "Native & drought-tolerant landscape",
+    category: "Ecosystem",
+    description:
+      "Replace water-intensive lawns with native, drought-tolerant planting to cut irrigation water, improve biodiversity and provide shading.",
+    capexInr: 600_000,
+    capexNote: "~8,000 m² of lawn converted over two seasons",
+    confidence: "low",
+    feasibility: 0.76,
+    energyRate: 0.015,
+    waterRate: 0.08,
+    spread: 0.4,
+    phase: "generate",
+    prerequisites: [],
+    evidence: ["un-sdgs", "epa-watersense"],
+    sdgs: [13, 15],
+    assumptions: [
+      "Native planting cuts landscape irrigation ~40% (≈8% of total water) and adds a small cooling (<2% energy) benefit.",
+      "Biodiversity benefit is qualitative; it is not converted to a quantitative metric.",
+    ],
+  },
+  {
+    slug: "ev-charging-readiness",
+    title: "EV charging readiness",
+    category: "Mobility",
+    description:
+      "Prepare the campus electrical network, parking layouts and procurement policy for future EV fleet and staff charging. An enabler action, not a direct-impact measure.",
+    capexInr: 900_000,
+    capexNote: "Feeder capacity + conduits + 4 dual plugs (mid retrofit)",
+    confidence: "low",
+    feasibility: 0.5,
+    spread: 0.5,
+    phase: "mobility",
+    prerequisites: [],
+    evidence: ["niti-ev", "un-sdgs"],
+    sdgs: [7, 11, 13],
+    assumptions: [
+      "Captured as readiness only — no direct annual savings are claimed for this action.",
+      "Future EV usage would shift transport-related emissions once fleet procurement follows.",
+    ],
+  },
+  {
+    slug: "rooftop-solar",
+    title: "Rooftop solar (component-level)",
+    category: "Renewable generation",
+    description:
+      "Install rooftop PV to offset grid electricity. Sized as ~20% of annual demand as a first tranche, with export avoided via net metering.",
+    capexInr: 4_200_000,
+    capexNote: "~7.5 MWp-equivalent first tranche (~₹5.6 Wp installed)",
+    confidence: "medium",
+    feasibility: 0.68,
+    energyRate: 0.22,
+    spread: 0.25,
+    phase: "generate",
+    prerequisites: [],
+    evidence: ["phi-solar", "bird-india-solar", "dot-doe-solar"],
+    sdgs: [7, 9, 13],
+    assumptions: [
+      "1 kWh of rooftop solar displaces 1 kWh of grid electricity in the net-metering regime.",
+      "Sized within usable rooftop and sanctioned-load limits; grid export assumptions vary by state.",
+    ],
+  },
+];
+
+const bySlug = new Map(INTERVENTION_CATALOG.map((e) => [e.slug, e]));
+
+export function getCatalogEntry(slug: string): CatalogEntry | undefined {
+  return bySlug.get(slug as CatalogEntry["slug"]);
+}
+
+export function listCatalog(): CatalogEntry[] {
+  return INTERVENTION_CATALOG;
+}
