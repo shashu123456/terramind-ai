@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-brand-50: #f2f6f8;
+  --color-brand-100: #e0e9ed;
+  --color-brand-200: #c3d3da;
+  --color-brand-300: #9db3be;
+  --color-brand-400: #6f8d9c;
+  --color-brand-500: #4c6b7d;
+  --color-brand-600: #33515f;
+  --color-brand-700: #2a4450;
+  --color-brand-800: #1f3744;
+  --color-brand-900: #172b3a;
+  --color-brand-950: #0e1c26;
+  --color-ibm-blue: #0f62fe;
+  --color-ibm-blue-700: #0a42c4;
+  --color-canvas: #f7f9fb;
+  --color-ink: #172231;
+  --color-ink-soft: #647482;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "DM Sans", ui-sans-serif, sans-serif;
+}
+
+:root {
+  font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  color: #172231;
+  background: #f7f9fb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  color-scheme: light;
+  --radius: 0.75rem;
+  --background: #f7f9fb;
+  --foreground: #172231;
+  --card: #ffffff;
+  --card-foreground: #172231;
+  --popover: #ffffff;
+  --popover-foreground: #172231;
+  --primary: #172b3a;
+  --primary-foreground: #ffffff;
+  --secondary: #eef2f5;
+  --secondary-foreground: #314454;
+  --muted: #f1f4f6;
+  --muted-foreground: #647482;
+  --accent: #e9eff2;
+  --accent-foreground: #172b3a;
+  --destructive: #c2413b;
+  --border: #dfe7eb;
+  --input: #dfe7eb;
+  --ring: #0f62fe;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #0e1c26;
+  --foreground: #e7edf1;
+  --card: #12242f;
+  --card-foreground: #e7edf1;
+  --popover: #12242f;
+  --popover-foreground: #e7edf1;
+  --primary: #0f62fe;
+  --primary-foreground: #ffffff;
+  --secondary: #1c3342;
+  --secondary-foreground: #cfdde4;
+  --muted: #162630;
+  --muted-foreground: #93a7b3;
+  --accent: #1c3342;
+  --accent-foreground: #e7edf1;
+  --destructive: #e05b5b;
+  --border: #22394a;
+  --input: #22394a;
+  --ring: #3c78d1;
+}
+
+* {
+  border-color: var(--border);
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+}
+#root {
+  min-height: 100vh;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  transition:
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+button:active {
+  transform: scale(0.98);
+}
+.font-display {
+  font-family: "Space Grotesk", "DM Sans", sans-serif;
+}
+::selection {
+  background: #cde9df;
+  color: #172b3a;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
