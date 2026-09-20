@@ -1,0 +1,16 @@
+import { initTRPC, TRPCError } from "@trpc/server";
+import superjson from "superjson";
+import { UNAUTHED_ERR_MSG } from "@terramind/shared";
+import type { AppContext } from "./context";
+
+export const t = initTRPC.context<AppContext>().create({ transformer: superjson });
+
+export const router = t.router;
+export const publicProcedure = t.procedure;
+
+export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
+  if (!ctx.user) {
+    throw new TRPCError({ code: "UNAUTHORIZED", message: UNAUTHED_ERR_MSG });
+  }
+  return next({ ctx: { ...ctx, user: ctx.user } });
+});
