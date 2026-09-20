@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    name: check · lint · test · build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck all workspaces
+        run: pnpm check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Build web + api
+        run: pnpm build
+
+      - name: Boot API and smoke-test in demo mode
+        shell: bash
+        run: |
+          set -e
+          node apps/api/dist/index.js &
+          PID=$!
+          trap "kill $PID" EXIT
+          for i in $(seq 1 30); do
+            if curl -sf http://127.0.0.1:3000/health >/dev/null 2>&1; then break; fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:3000/health | grep -q '"status":"ok"'
+          curl -fsS http://127.0.0.1:3000/ | grep -q "TerraMind AI"
+          echo "smoke test ok"

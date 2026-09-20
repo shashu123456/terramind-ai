@@ -1,0 +1,49 @@
+name: Bug report
+description: Report a defect in TerraMind AI
+title: "[bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for taking the time to report a bug. Include numbers + versions where relevant."
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode
+      options:
+        - Demo (JSON store, local LLM)
+        - MySQL
+        - Production (built bundle)
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: APP_VERSION from Settings, and commit if known
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Include the exact step, request, and response (redact cookies/tokens).
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / traces
+      render: shell

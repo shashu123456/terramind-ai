@@ -1,0 +1,40 @@
+name: Feature request
+description: Propose a change to TerraMind AI
+title: "[feat]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / job to be done
+      description: What does a user need, and why can't they do it today?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options:
+        - Engine (catalog / factors / calculators / portfolio)
+        - AI copilot / evidence base
+        - API / storage
+        - Web app / design
+        - Docs / DX
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence links (for new factors/interventions)
+      description: Sources + URLs; ensure they satisfy the provenance rule.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
