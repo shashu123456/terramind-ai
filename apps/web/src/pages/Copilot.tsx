@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link } from "wouter";
 import { Bot, BookOpen, ExternalLink, Loader2, Send, ShieldCheck, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,51 @@ const SUGGESTIONS = [
   "Explain why demand reduction should come before rooftop solar.",
   "What data would increase confidence in our water estimate?",
 ];
+
+function InlineText({ text }: { text: string }) {
+  const parts = text.split("**");
+  return (
+    <>
+      {parts.map((part, i) =>
+        i % 2 === 1 ? (
+          <strong key={i} className="font-semibold">
+            {part}
+          </strong>
+        ) : (
+          <Fragment key={i}>{part}</Fragment>
+        ),
+      )}
+    </>
+  );
+}
+
+function MessageBody({ content }: { content: string }) {
+  const chunks = content
+    .split(/\n?\s*•\s*/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (chunks.length <= 1) {
+    return (
+      <p>
+        <InlineText text={content} />
+      </p>
+    );
+  }
+  return (
+    <>
+      <p>
+        <InlineText text={chunks[0]} />
+      </p>
+      <ul className="mt-2 list-disc space-y-1.5 pl-5">
+        {chunks.slice(1).map((item, i) => (
+          <li key={i} className="marker:text-brand-500">
+            <InlineText text={item} />
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
 
 export default function Copilot() {
   const campuses = trpc.campus.list.useQuery();
@@ -119,12 +164,10 @@ export default function Copilot() {
                     <div className="min-w-0 flex-1 space-y-2">
                       <div
                         className={`rounded-xl border px-4 py-3 text-sm leading-6 ${
-                          m.error
-                            ? "border-red-200 bg-red-50 text-red-700"
-                            : "border-border bg-muted/40 whitespace-pre-wrap"
+                          m.error ? "border-red-200 bg-red-50 text-red-700" : "border-border bg-muted/40"
                         }`}
                       >
-                        {m.content}
+                        <MessageBody content={m.content} />
                       </div>
                       {!m.error && m.citations && m.citations.length > 0 && (
                         <div className="rounded-lg border border-border bg-background p-3">

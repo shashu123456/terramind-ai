@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Redirect, Route, Switch } from "wouter";
 import { Brand } from "@terramind/ui";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -5,14 +6,15 @@ import { useAuth } from "./hooks/useAuth";
 import AppShell from "./components/layout/AppShell";
 import Login from "./pages/Login";
 import Overview from "./pages/Overview";
-import Baseline from "./pages/Baseline";
-import Interventions from "./pages/Interventions";
-import Scenarios from "./pages/Scenarios";
-import Copilot from "./pages/Copilot";
-import Trace from "./pages/Trace";
-import Reports from "./pages/Reports";
-import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+
+const Baseline = lazy(() => import("./pages/Baseline"));
+const Interventions = lazy(() => import("./pages/Interventions"));
+const Scenarios = lazy(() => import("./pages/Scenarios"));
+const Copilot = lazy(() => import("./pages/Copilot"));
+const Trace = lazy(() => import("./pages/Trace"));
+const Reports = lazy(() => import("./pages/Reports"));
+const Settings = lazy(() => import("./pages/Settings"));
 
 function LoadingScreen() {
   return (
@@ -35,18 +37,20 @@ function Gate() {
 
   return (
     <AppShell>
-      <Switch>
-        <Route path="/" component={Overview} />
-        <Route path="/baseline" component={Baseline} />
-        <Route path="/interventions" component={Interventions} />
-        <Route path="/scenarios" component={Scenarios} />
-        <Route path="/copilot" component={Copilot} />
-        <Route path="/traces" component={Trace} />
-        <Route path="/reports" component={Reports} />
-        <Route path="/settings" component={Settings} />
-        <Route path="/login" component={() => <Redirect to="/" />} />
-        <Route component={NotFound} />
-      </Switch>
+      <Suspense fallback={<LoadingScreen />}>
+        <Switch>
+          <Route path="/" component={Overview} />
+          <Route path="/baseline" component={Baseline} />
+          <Route path="/interventions" component={Interventions} />
+          <Route path="/scenarios" component={Scenarios} />
+          <Route path="/copilot" component={Copilot} />
+          <Route path="/traces" component={Trace} />
+          <Route path="/reports" component={Reports} />
+          <Route path="/settings" component={Settings} />
+          <Route path="/login" component={() => <Redirect to="/" />} />
+          <Route component={NotFound} />
+        </Switch>
+      </Suspense>
     </AppShell>
   );
 }

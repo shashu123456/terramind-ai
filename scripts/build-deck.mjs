@@ -258,14 +258,7 @@ function bodyBox(slide, x, y, w, h, lines) {
     { text: "resilience-first", options: {} },
   ], { x: 0.55, y: 3.95, w: 6.0, h: 1.7, fontFace: "Arial", fontSize: 11.5, bold: true, color: C.steel, margin: 0, lineSpacingMultiple: 1.5 });
 
-  const data = [
-    { name: "Balanced", labels: ["Balanced"], values: [50] },
-    { name: "Carbon-first", labels: ["Carbon-first"], values: [100] },
-    { name: "Cost-first", labels: ["Cost-first"], values: [20] },
-    { name: "Payback-first", labels: ["Payback-first"], values: [20] },
-    { name: "Resilience-first", labels: ["Resilience-first"], values: [20] },
-  ];
-  const chart = s.addChart("bar", [
+  s.addChart("bar", [
     { name: "carbon weighting %", labels: ["Balanced", "Carbon-first", "Cost-first", "Payback-first", "Resilience-first"], values: [50, 100, 20, 20, 20] },
     { name: "cost weighting %", labels: ["", "", "", "", ""], values: [25, 0, 70, 60, 20] },
     { name: "resilience weighting %", labels: ["", "", "", "", ""], values: [25, 0, 10, 20, 60] },

@@ -52,4 +52,14 @@ export default tseslint.config(
       "@typescript-eslint/ban-ts-comment": "off",
     },
   },
+  {
+    files: [
+      "packages/ui/**/*.{ts,tsx}",
+      "apps/web/src/components/ui/**/*.{ts,tsx}",
+      "apps/web/src/contexts/**/*.{ts,tsx}",
+    ],
+    rules: {
+      "react-refresh/only-export-components": "off",
+    },
+  },
 );
