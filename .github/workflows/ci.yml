@@ -40,7 +40,7 @@ jobs:
         shell: bash
         run: |
           set -e
-          node apps/api/dist/index.js &
+          NODE_ENV=production node apps/api/dist/index.js &
           PID=$!
           trap "kill $PID" EXIT
           for i in $(seq 1 30); do
